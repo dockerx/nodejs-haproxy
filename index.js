@@ -31,7 +31,7 @@ function setDefaultBackend(targethost) {
     var name = 'www';
     addCustom("" +
     "\n" + SSComment(name).start +
-    "\n  default_backend ' + name + '_backend\n" +
+    "\n  default_backend " + name + "_backend\n" +
     "\n" + SSComment(name).end + "\n", "" +
     "\n" + SSComment(name).start + 
     "\nbackend " + name + "_backend" + 
