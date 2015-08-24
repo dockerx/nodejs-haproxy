@@ -1,0 +1,4 @@
+#frontend  secure
+#  bind *:443 ssl crt /etc/haproxy/ssl/final.pem
+#  bind-process all
+#  default_backend dockerbox_backend
