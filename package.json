@@ -6,7 +6,8 @@
   "dependencies": {
     "glob-whatev": "~0.1.8",
     "haproxy": "~0.1.0",
-    "underscore": "~1.8.3"
+    "underscore": "~1.8.3",
+    "ncp": "~2.0.0"
   },
   "devDependencies": {},
   "scripts": {

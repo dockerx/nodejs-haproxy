@@ -4,7 +4,10 @@ var compiler = require('./compiler'),
     fs = require('fs'),
     path = require('path'),
     _ = require('underscore'),
-    haproxy = require('./haproxy');
+    haproxy = require('./haproxy'),
+    ncp = require('ncp').ncp;
+
+ncp.limit = 16;
 
 function init(config) {
     config = config || {};
@@ -15,15 +18,19 @@ function init(config) {
     //copy the hap config template for the env
     var exec = require('child_process').exec;
     //Creating the tempfiles folder and copyng the proxyserver config
-    exec('mkdir -p '+defaultLocation+' & cp -r '+__dirname+'/hapconfigtemplate/config ' + defaultLocation, function(err, stdout, stderr) {
+    exec('mkdir -p '+ defaultLocation, function(err, stdout, stderr) {
         if(err||stdout||stderr) console.log(err, stdout, stderr);
         
-        setHapAdmin(hapAdminPort);
-        setDefaultBackend(defaultBackend);
-        routeList.forEach(function(route){
-            addHttpProxy(route.name, route.targethost);
-        });
-        haproxy.init();
+        ncp(__dirname+'/hapconfigtemplate/config', defaultLocation, function (err) {
+            if (err) return console.error(err);
+
+            setHapAdmin(hapAdminPort);
+            setDefaultBackend(defaultBackend);
+            routeList.forEach(function(route){
+                addHttpProxy(route.name, route.targethost);
+            });
+            haproxy.init();
+        });     
     });
 }
 
