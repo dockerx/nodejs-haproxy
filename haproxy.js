@@ -25,7 +25,8 @@ module.exports = {
         });*/
         var self = this;
         cb = cb || function(){};
-        HAProxy.softstop(function(err){
+        //HAProxy.softstop(function(err){
+        HAProxy.stop(function(err){
             if(err) {console.log(err); return cb(err);}
             console.log('  .. HAP softstoped. Starting it..');
             self.start(cb);

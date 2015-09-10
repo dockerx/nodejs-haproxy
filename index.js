@@ -161,6 +161,12 @@ function restartHaproxy(cb) {
     });
 }
 
+function startHap(cb) {
+    haproxy.start(function(err){
+        cb && cb(err);
+    });
+}
+
 function verifyHaproxyConfig(cb) {
     haproxy.verify(function(err){
         cb && cb(err);
@@ -194,5 +200,6 @@ init.addHttpsProxy = addHttpsProxy;
 init.removeHttpProxy = removeHttpProxy;
 init.removeHttpsProxy = removeHttpsProxy;
 init.restart = restartHaproxy;
+init.start = startHap;
 init.verify = verifyHaproxyConfig;
 module.exports = init;
